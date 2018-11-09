@@ -14,7 +14,7 @@ class App extends Component {
             modalOpen: false,
             modalTitle: '',
             modalContent: '',
-            traces: [{'AcceptStation':'1233213213232', 'AcceptTime':'123'},{'AcceptStation':'123', 'AcceptTime':'1233213232'}],
+            traces: [],
 
         };
     };
