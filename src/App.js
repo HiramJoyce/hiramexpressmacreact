@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import {Icon, Input, Card, Modal, Button, Header} from 'semantic-ui-react';
+import {Icon, Input, Card, Modal, Button, Header, Step, Dimmer, Loader} from 'semantic-ui-react';
 import {NetworkService} from './lib/index'
 
 class App extends Component {
@@ -14,15 +14,18 @@ class App extends Component {
             modalOpen: false,
             modalTitle: '',
             modalContent: '',
+            traces: [{'AcceptStation':'1233213213232', 'AcceptTime':'123'},{'AcceptStation':'123', 'AcceptTime':'1233213232'}],
+
         };
     };
 
     analysisExpress = () => {
         const vm = this;
         if (vm.state.logisticCode.length >= 6) {
-            vm.setState({checking: true});
+            vm.setState({checking: true, traces: []});
             console.log(vm.state.logisticCode);
             NetworkService.analysisExpress(vm.state.logisticCode).then(function (res) {
+                console.log(res);
                 if (res.code === 0) {
                     if (res.data.length <= 0) {
                         vm.setState({
@@ -53,6 +56,10 @@ class App extends Component {
         NetworkService.checkExpress(vm.state.logisticCode, company_code).then(function (res) {
             if (res.code === 0) {
                 console.log(res);
+                vm.setState({
+                    traces : res.data.traces,
+                    expressList: []
+                })
             } else {
                 vm.setState({
                     modalOpen: true,
@@ -80,6 +87,25 @@ class App extends Component {
         return _expressList;
     };
 
+    _renderTraces = () => {
+        let vm = this;
+        let _traces = [];
+        if (vm.state.traces.length > 0) {
+            vm.state.traces.forEach(function (traceInfo, index) {
+                _traces.push(
+                    <Step style={{height: 70, textAlign:'left', lineHeight:2}}>
+                        <Icon name='truck' />
+                        <Step.Content>
+                            <Step.Title>{traceInfo.AcceptStation}</Step.Title>
+                            <Step.Description style={{marginLeft:0}}>{traceInfo.AcceptTime}</Step.Description>
+                        </Step.Content>
+                    </Step>
+                )
+            })
+        }
+        return _traces;
+    };
+
     handleClose = () => this.setState({ modalOpen: false });
 
     render() {
@@ -89,7 +115,13 @@ class App extends Component {
                     <h1>简单查</h1>
                     <Input icon={<Icon name={this.state.checking?'crosshairs':'search'} loading={this.state.checking} onClick={()=>this.analysisExpress()} inverted circular link/>} placeholder='快递编号...'
                            onChange={(data)=>this.setState({logisticCode: data.target.value})} />
-                    {this.state.expressList.length > 0 ? <Card style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}
+                    {this.state.expressList.length > 0 ? <Card style={{marginBottom:10, minWidth:300}}>{this._renderExpressList()}</Card>: ''}
+                    <Dimmer active={this.state.checking}>
+                        <Loader content='Loading' />
+                    </Dimmer>
+                    <Step.Group vertical size='mini'>
+                        {this._renderTraces()}
+                    </Step.Group>
                     <Modal
                         open={this.state.modalOpen}
                         onClose={this.handleClose}

@@ -2,7 +2,8 @@ const Service = {
     checkExpress: checkExpress,
     analysisExpress: analysisExpress
 };
-const baseurl = '/api';
+// const baseurl = '/napi';    // 开发用这个
+const baseurl = '/api'; // 部署用这个
 //接口方法封装
 function loadingData(url, sendType, headers, body){
     let finalUrl = baseurl+url;
