@@ -108,7 +108,7 @@ class App extends Component {
         let vm = this;
         let _traces = [];
         if (vm.state.traces.length > 0) {
-            vm.state.traces.forEach(function (traceInfo, index) {
+            vm.state.traces.forEach(function (traceInfo) {
                 _traces.push(
                     <Step style={{height: 70, textAlign:'left', lineHeight:2}}>
                         <Icon name='truck' />
