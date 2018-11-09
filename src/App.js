@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import {Icon, Input, Card, Modal, Button, Header, Step, Dimmer, Loader, Statistic} from 'semantic-ui-react';
+import {Icon, Input, Card, Modal, Button, Header, Dimmer, Loader, Statistic} from 'semantic-ui-react';
 import {NetworkService} from './lib/index'
 
 class App extends Component {
@@ -104,19 +104,16 @@ class App extends Component {
         return _expressList;
     };
 
-    _renderTraces = () => {
+    _renderTracesCard = () => {
         let vm = this;
         let _traces = [];
         if (vm.state.traces.length > 0) {
             vm.state.traces.forEach(function (traceInfo) {
                 _traces.push(
-                    <Step style={{height: 70, textAlign:'left', lineHeight:2}}>
-                        <Icon name='truck' />
-                        <Step.Content>
-                            <Step.Title>{traceInfo.AcceptStation}</Step.Title>
-                            <Step.Description style={{marginLeft:0}}>{traceInfo.AcceptTime}</Step.Description>
-                        </Step.Content>
-                    </Step>
+                    <Card.Content style={{textAlign:'left', padding: '5px 20px'}}>
+                        <Card.Meta style={{fontSize:'16px'}}><Icon name='truck' style={{marginRight:10}} />{traceInfo.AcceptStation}</Card.Meta>
+                        <Card.Description style={{fontSize:'14px', marginLeft:37}}>{traceInfo.AcceptTime}</Card.Description>
+                    </Card.Content>
                 )
             })
         }
@@ -136,13 +133,13 @@ class App extends Component {
                     </Statistic>
                     <Input icon={<Icon name={this.state.checking?'crosshairs':'search'} loading={this.state.checking} onClick={()=>this.analysisExpress()} inverted circular link/>} placeholder='快递编号...'
                            onChange={(data)=>this.setState({logisticCode: data.target.value})} />
-                    {this.state.expressList.length > 0 ? <Card style={{marginBottom:10, minWidth:300}}>{this._renderExpressList()}</Card>: ''}
+                    {this.state.expressList.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}
                     <Dimmer active={this.state.checking}>
                         <Loader content='Loading' />
                     </Dimmer>
-                    <Step.Group vertical size='mini'>
-                        {this._renderTraces()}
-                    </Step.Group>
+                    {this.state.traces.length > 0 ? <Card style={{marginBottom:10, width:'80%'}}>
+                        {this._renderTracesCard()}
+                    </Card>:''}
                     <Modal
                         open={this.state.modalOpen}
                         onClose={this.handleClose}
