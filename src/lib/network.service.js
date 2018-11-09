@@ -27,14 +27,14 @@ function loadingData(url, sendType, headers, body){
 }
 
 function checkExpress(logisticCode, company_code) {
-    let url = '/check/';
+    let url = '/api/check/';
     let sendType = 'POST';
     let body = "logisticCode=" + logisticCode + "&shipperCode=" + company_code;
     return loadingData(url,sendType,null,body)
 }
 
 function analysisExpress(logisticCode) {
-    let url = '/analysis?logisticCode=' + logisticCode;
+    let url = '/api/analysis?logisticCode=' + logisticCode;
     let sendType = 'GET';
     let body = null;
     return loadingData(url,sendType,null,body)
