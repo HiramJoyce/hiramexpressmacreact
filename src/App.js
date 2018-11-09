@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import {Icon, Input, Card, Modal, Button, Header, Dimmer, Loader, Statistic} from 'semantic-ui-react';
+import {Icon, Input, Card, Modal, Button, Header, Statistic, Loader} from 'semantic-ui-react';
 import {NetworkService} from './lib/index'
 
 class App extends Component {
@@ -38,7 +38,7 @@ class App extends Component {
 
     analysisExpress = () => {
         const vm = this;
-        if (vm.state.logisticCode.length >= 6) {
+        if (!vm.state.checking && vm.state.logisticCode.length >= 6) {
             vm.setState({checking: true, traces: [], allExpress: [], useAnalysis: true});
             console.log(vm.state.logisticCode);
             NetworkService.analysisExpress(vm.state.logisticCode).then(function (res) {
@@ -143,6 +143,19 @@ class App extends Component {
         return _expressList;
     };
 
+    _renderAllExpressListButton = () => {
+        let vm = this;
+        let _expressList = [];
+        if (vm.state.allExpress.length > 0) {
+            vm.state.allExpress.forEach(function (expressInfo, index) {
+                _expressList.push(
+                    <Button size={'massive'} key={expressInfo + index} onClick={()=>vm.checkExpress(expressInfo)}>{expressInfo}</Button>
+                )
+            });
+        }
+        return _expressList;
+    };
+
     _renderTracesCard = () => {
         let vm = this;
         let _traces = [];
@@ -174,12 +187,20 @@ class App extends Component {
                            onChange={(data)=>this.setState({logisticCode: data.target.value})} />
                     {this.state.expressList.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}
                     {this.state.allExpress.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderAllExpressList()}</Card>: ''}
-                    <Dimmer active={this.state.checking}>
-                        <Loader content='Loading' />
-                    </Dimmer>
                     {this.state.traces.length > 0 ? <Card style={{marginBottom:10, width:'80%'}}>
                         {this._renderTracesCard()}
                     </Card>:''}
+                    <Button.Group vertical>
+                        {this._renderAllExpressListButton()}
+                    </Button.Group>
+                    <Modal
+                        open={this.state.checking}
+                        onClose={this.handleClose}
+                        basic
+                        size='small'
+                    >
+                        <Loader active={this.state.checking}/>
+                    </Modal>
                     <Modal
                         open={this.state.modalOpen}
                         onClose={this.handleClose}
