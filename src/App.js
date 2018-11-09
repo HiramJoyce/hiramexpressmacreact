@@ -143,19 +143,6 @@ class App extends Component {
         return _expressList;
     };
 
-    _renderAllExpressListButton = () => {
-        let vm = this;
-        let _expressList = [];
-        if (vm.state.allExpress.length > 0) {
-            vm.state.allExpress.forEach(function (expressInfo, index) {
-                _expressList.push(
-                    <Button size={'massive'} key={expressInfo + index} onClick={()=>vm.checkExpress(expressInfo)}>{expressInfo}</Button>
-                )
-            });
-        }
-        return _expressList;
-    };
-
     _renderTracesCard = () => {
         let vm = this;
         let _traces = [];
@@ -190,9 +177,6 @@ class App extends Component {
                     {this.state.traces.length > 0 ? <Card style={{marginBottom:10, width:'80%'}}>
                         {this._renderTracesCard()}
                     </Card>:''}
-                    <Button.Group vertical>
-                        {this._renderAllExpressListButton()}
-                    </Button.Group>
                     <Modal
                         open={this.state.checking}
                         onClose={this.handleClose}
