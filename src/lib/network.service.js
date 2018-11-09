@@ -1,10 +1,11 @@
 const Service = {
     checkExpress: checkExpress,
     analysisExpress: analysisExpress,
-    getTodayCount: getTodayCount
+    getTodayCount: getTodayCount,
+    getExpressList: getExpressList
 };
-const baseurl = '/napi';    // 开发用这个
-// const baseurl = '/api'; // 部署用这个
+// const baseurl = '';    // mac用这个且不提交
+const baseurl = '/napi'; // window开发和部署用这个
 //接口方法封装
 function loadingData(url, sendType, headers, body){
     let finalUrl = baseurl+url;
@@ -28,10 +29,10 @@ function loadingData(url, sendType, headers, body){
     })
 }
 
-function checkExpress(logisticCode, company_code) {
+function checkExpress(logisticCode, company_code, useAnalysis) {
     let url = '/api/check/';
     let sendType = 'POST';
-    let body = "logisticCode=" + logisticCode + "&shipperCode=" + company_code;
+    let body = "logisticCode=" + logisticCode + "&shipperCode=" + company_code + "&useAnalysis=" + useAnalysis;
     return loadingData(url,sendType,null,body)
 }
 
@@ -44,6 +45,13 @@ function analysisExpress(logisticCode) {
 
 function getTodayCount () {
     let url = '/api/count';
+    let sendType = 'GET';
+    let body = null;
+    return loadingData(url, sendType, null, body)
+}
+
+function getExpressList () {
+    let url = '/api/list';
     let sendType = 'GET';
     let body = null;
     return loadingData(url, sendType, null, body)

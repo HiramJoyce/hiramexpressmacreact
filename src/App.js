@@ -15,7 +15,9 @@ class App extends Component {
             modalTitle: '',
             modalContent: '',
             traces: [],
-            todayCount: ''
+            todayCount: '',
+            useAnalysis: true,
+            allExpress: []
         };
     };
 
@@ -37,7 +39,7 @@ class App extends Component {
     analysisExpress = () => {
         const vm = this;
         if (vm.state.logisticCode.length >= 6) {
-            vm.setState({checking: true, traces: []});
+            vm.setState({checking: true, traces: [], allExpress: []});
             console.log(vm.state.logisticCode);
             NetworkService.analysisExpress(vm.state.logisticCode).then(function (res) {
                 console.log(res);
@@ -67,8 +69,8 @@ class App extends Component {
 
     checkExpress = (company_code) => {
         let vm = this;
-        vm.setState({checking: true});
-        NetworkService.checkExpress(vm.state.logisticCode, company_code).then(function (res) {
+        vm.setState({checking: true, allExpress: []});
+        NetworkService.checkExpress(vm.state.logisticCode, company_code, vm.state.useAnalysis).then(function (res) {
             if (res.code === 0) {
                 console.log(res);
                 vm.setState({
@@ -88,6 +90,18 @@ class App extends Component {
         })
     };
 
+    showExpressList = () => {
+        let vm = this;
+        NetworkService.getExpressList().then(function (res) {
+            if (res.code === 0) {
+                vm.setState({
+                    expressList: [],
+                    allExpress: res.data
+                })
+            }
+        })
+    };
+
     _renderExpressList = () => {
         let vm = this;
         let _expressList = [];
@@ -98,6 +112,25 @@ class App extends Component {
             vm.state.expressList.forEach(function (expressInfo, index) {
                 _expressList.push(
                     <Card.Content key={expressInfo.company_code + index} onClick={()=>vm.checkExpress(expressInfo.company_code)} description={expressInfo.company_name} />
+                )
+            });
+            _expressList.push(
+                <Card.Content style={{fontSize: 16}} onClick={()=>this.showExpressList()} header='选择其他' />
+            );
+        }
+        return _expressList;
+    };
+
+    _renderAllExpressList = () => {
+        let vm = this;
+        let _expressList = [];
+        if (vm.state.allExpress.length > 0) {
+            _expressList.push(
+                <Card.Content style={{height: 30, fontSize: 16, paddingTop: 5}} header='当前支持的全部快递' />
+            );
+            vm.state.allExpress.forEach(function (expressInfo, index) {
+                _expressList.push(
+                    <Card.Content key={expressInfo + index} onClick={()=>vm.checkExpress(expressInfo)} description={expressInfo} />
                 )
             });
         }
@@ -134,6 +167,7 @@ class App extends Component {
                     <Input icon={<Icon name={this.state.checking?'crosshairs':'search'} loading={this.state.checking} onClick={()=>this.analysisExpress()} inverted circular link/>} placeholder='快递编号...'
                            onChange={(data)=>this.setState({logisticCode: data.target.value})} />
                     {this.state.expressList.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}
+                    {this.state.allExpress.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderAllExpressList()}</Card>: ''}
                     <Dimmer active={this.state.checking}>
                         <Loader content='Loading' />
                     </Dimmer>
