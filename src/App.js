@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import {Icon, Input, Card, Modal, Button, Header} from 'semantic-ui-react';
+import {Icon, Input, Card, Modal, Button, Header, Dimmer, Loader, Statistic} from 'semantic-ui-react';
 import {NetworkService} from './lib/index'
 
 class App extends Component {
@@ -14,15 +14,33 @@ class App extends Component {
             modalOpen: false,
             modalTitle: '',
             modalContent: '',
+            traces: [],
+            todayCount: ''
         };
+    };
+
+    componentDidMount = () => {
+        this.getTodayCount();
+    };
+
+    getTodayCount = () => {
+        let vm = this;
+        NetworkService.getTodayCount().then(function (res) {
+            if (res.code === 0) {
+                vm.setState({
+                    todayCount: res.data
+                })
+            }
+        })
     };
 
     analysisExpress = () => {
         const vm = this;
         if (vm.state.logisticCode.length >= 6) {
-            vm.setState({checking: true});
+            vm.setState({checking: true, traces: []});
             console.log(vm.state.logisticCode);
             NetworkService.analysisExpress(vm.state.logisticCode).then(function (res) {
+                console.log(res);
                 if (res.code === 0) {
                     if (res.data.length <= 0) {
                         vm.setState({
@@ -53,11 +71,17 @@ class App extends Component {
         NetworkService.checkExpress(vm.state.logisticCode, company_code).then(function (res) {
             if (res.code === 0) {
                 console.log(res);
+                vm.setState({
+                    traces : res.data.traces,
+                    expressList: [],
+                    todayCount: res.msg
+                })
             } else {
                 vm.setState({
                     modalOpen: true,
                     modalTitle: "查询失败",
-                    modalContent: res.msg
+                    modalContent: res.msg,
+                    todayCount: res.data
                 })
             }
             vm.setState({checking: false});
@@ -80,6 +104,22 @@ class App extends Component {
         return _expressList;
     };
 
+    _renderTracesCard = () => {
+        let vm = this;
+        let _traces = [];
+        if (vm.state.traces.length > 0) {
+            vm.state.traces.forEach(function (traceInfo) {
+                _traces.push(
+                    <Card.Content style={{textAlign:'left', padding: '5px 20px'}}>
+                        <Card.Meta style={{fontSize:'16px'}}><Icon name='truck' style={{marginRight:10}} />{traceInfo.AcceptStation}</Card.Meta>
+                        <Card.Description style={{fontSize:'14px', marginLeft:37}}>{traceInfo.AcceptTime}</Card.Description>
+                    </Card.Content>
+                )
+            })
+        }
+        return _traces;
+    };
+
     handleClose = () => this.setState({ modalOpen: false });
 
     render() {
@@ -87,9 +127,19 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <h1>简单查</h1>
+                    <Statistic color='green' inverted size='small'>
+                        <Statistic.Label style={{fontSize: 15}}>今日服务</Statistic.Label>
+                        <Statistic.Value>{this.state.todayCount}<span style={{fontSize: 15}}>次</span></Statistic.Value>
+                    </Statistic>
                     <Input icon={<Icon name={this.state.checking?'crosshairs':'search'} loading={this.state.checking} onClick={()=>this.analysisExpress()} inverted circular link/>} placeholder='快递编号...'
                            onChange={(data)=>this.setState({logisticCode: data.target.value})} />
-                    {this.state.expressList.length > 0 ? <Card style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}
+                    {this.state.expressList.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}
+                    <Dimmer active={this.state.checking}>
+                        <Loader content='Loading' />
+                    </Dimmer>
+                    {this.state.traces.length > 0 ? <Card style={{marginBottom:10, width:'80%'}}>
+                        {this._renderTracesCard()}
+                    </Card>:''}
                     <Modal
                         open={this.state.modalOpen}
                         onClose={this.handleClose}
@@ -111,5 +161,4 @@ class App extends Component {
         );
     }
 }
-
 export default App;

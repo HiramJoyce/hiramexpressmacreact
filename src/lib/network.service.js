@@ -1,8 +1,10 @@
 const Service = {
     checkExpress: checkExpress,
-    analysisExpress: analysisExpress
+    analysisExpress: analysisExpress,
+    getTodayCount: getTodayCount
 };
-const baseurl = '/api';
+const baseurl = '/napi';    // 开发用这个
+// const baseurl = '/api'; // 部署用这个
 //接口方法封装
 function loadingData(url, sendType, headers, body){
     let finalUrl = baseurl+url;
@@ -27,17 +29,24 @@ function loadingData(url, sendType, headers, body){
 }
 
 function checkExpress(logisticCode, company_code) {
-    let url = '/check/';
+    let url = '/api/check/';
     let sendType = 'POST';
     let body = "logisticCode=" + logisticCode + "&shipperCode=" + company_code;
     return loadingData(url,sendType,null,body)
 }
 
 function analysisExpress(logisticCode) {
-    let url = '/analysis?logisticCode=' + logisticCode;
+    let url = '/api/analysis?logisticCode=' + logisticCode;
     let sendType = 'GET';
     let body = null;
     return loadingData(url,sendType,null,body)
+}
+
+function getTodayCount () {
+    let url = '/api/count';
+    let sendType = 'GET';
+    let body = null;
+    return loadingData(url, sendType, null, body)
 }
 
 export default Service;

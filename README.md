@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+部署时package.json中的proxy配置成"proxy": "http://127.0.0.1:8881"
+network.service.js中 baseurl = '/api'
+
 ## Available Scripts
 
 In the project directory, you can run:
