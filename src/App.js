@@ -51,9 +51,13 @@ class App extends Component {
                             modalContent: "无法找到该快递编号所属公司。"
                         })
                     } else {
-                        vm.setState({
-                            expressList: res.data
-                        });
+                        if (res.data.length === 1) {
+                            vm.checkExpress(res.data[0].company_code)
+                        } else {
+                            vm.setState({
+                                expressList: res.data
+                            });
+                        }
                     }
                 } else {
                     vm.setState({
@@ -69,13 +73,14 @@ class App extends Component {
 
     checkExpress = (company_code) => {
         let vm = this;
-        vm.setState({checking: true, allExpress: []});
+        vm.setState({checking: true});
         NetworkService.checkExpress(vm.state.logisticCode, company_code, vm.state.useAnalysis).then(function (res) {
             if (res.code === 0) {
                 console.log(res);
                 vm.setState({
                     traces : res.data.traces,
                     expressList: [],
+                    allExpress: [],
                     todayCount: res.msg
                 })
             } else {
