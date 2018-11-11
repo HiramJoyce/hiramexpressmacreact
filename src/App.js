@@ -16,21 +16,23 @@ class App extends Component {
             modalContent: '',
             traces: [],
             todayCount: '',
+            historyCount: '',
             useAnalysis: true,
             allExpress: []
         };
     };
 
     componentDidMount = () => {
-        this.getTodayCount();
+        this.getCount();
     };
 
-    getTodayCount = () => {
+    getCount = () => {
         let vm = this;
-        NetworkService.getTodayCount().then(function (res) {
+        NetworkService.getCount().then(function (res) {
             if (res.code === 0) {
                 vm.setState({
-                    todayCount: res.data
+                    todayCount: res.data.todayCount,
+                    historyCount: res.data.historyCount
                 })
             }
         })
@@ -166,10 +168,16 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <h1>简单查</h1>
-                    <Statistic color='green' inverted size='small'>
-                        <Statistic.Label style={{fontSize: 15}}>今日服务</Statistic.Label>
-                        <Statistic.Value>{this.state.todayCount}<span style={{fontSize: 15}}>次</span></Statistic.Value>
-                    </Statistic>
+                    <Statistic.Group>
+                        <Statistic color='green' style={{marginLeft:0}} inverted size='small'>
+                            <Statistic.Label style={{fontSize: 15}}>累计服务</Statistic.Label>
+                            <Statistic.Value>{this.state.historyCount + this.state.todayCount}<span style={{fontSize: 15}}>次</span></Statistic.Value>
+                        </Statistic>
+                        <Statistic color='green' inverted size='small'>
+                            <Statistic.Label style={{fontSize: 15}}>今日服务</Statistic.Label>
+                            <Statistic.Value>{this.state.todayCount}<span style={{fontSize: 15}}>次</span></Statistic.Value>
+                        </Statistic>
+                    </Statistic.Group>
                     <Input icon={<Icon name={this.state.checking?'crosshairs':'search'} loading={this.state.checking} onClick={()=>this.analysisExpress()} inverted circular link/>} placeholder='快递编号...'
                            onChange={(data)=>this.setState({logisticCode: data.target.value})} />
                     {this.state.expressList.length > 0 ? <Card size='mini' style={{marginBottom:10}}>{this._renderExpressList()}</Card>: ''}

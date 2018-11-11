@@ -2,7 +2,8 @@ const Service = {
     checkExpress: checkExpress,
     analysisExpress: analysisExpress,
     getTodayCount: getTodayCount,
-    getExpressList: getExpressList
+    getExpressList: getExpressList,
+    getCount: getCount
 };
 // const baseurl = '';    // mac用这个且不提交
 const baseurl = '/napi'; // window开发和部署用这个
@@ -44,6 +45,13 @@ function analysisExpress(logisticCode) {
 }
 
 function getTodayCount () {
+    let url = '/api/count';
+    let sendType = 'GET';
+    let body = null;
+    return loadingData(url, sendType, null, body)
+}
+
+function getCount() {
     let url = '/api/count';
     let sendType = 'GET';
     let body = null;
