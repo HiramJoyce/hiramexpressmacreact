@@ -206,8 +206,8 @@ class App extends Component {
                             </Button>
                         </Modal.Actions>
                     </Modal>
-                    <NavLink style={{fontSize:13, position:'fixed', bottom:0}} exact to={'/rate'}>如使用中遇到任何问题请反馈</NavLink>
                 </header>
+                <NavLink style={{fontSize:13}} exact to={'/rate'}>如使用中遇到任何问题请反馈</NavLink>
             </div>
         );
     }
