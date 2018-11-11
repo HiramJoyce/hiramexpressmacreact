@@ -2,7 +2,8 @@ const Service = {
     checkExpress: checkExpress,
     analysisExpress: analysisExpress,
     getExpressList: getExpressList,
-    getCount: getCount
+    getCount: getCount,
+    rate: rate
 };
 // const baseurl = '';    // mac用这个且不提交
 const baseurl = '/napi'; // window开发和部署用这个
@@ -54,6 +55,13 @@ function getExpressList () {
     let url = '/api/list';
     let sendType = 'GET';
     let body = null;
+    return loadingData(url, sendType, null, body)
+}
+
+function rate (message, email, stars) {
+    let url = '/api/rate';
+    let sendType = 'POST';
+    let body = 'message=' + message + '&email=' + email + '&stars=' + stars;
     return loadingData(url, sendType, null, body)
 }
 
