@@ -1,7 +1,6 @@
 const Service = {
     checkExpress: checkExpress,
     analysisExpress: analysisExpress,
-    getTodayCount: getTodayCount,
     getExpressList: getExpressList,
     getCount: getCount
 };
@@ -42,13 +41,6 @@ function analysisExpress(logisticCode) {
     let sendType = 'GET';
     let body = null;
     return loadingData(url,sendType,null,body)
-}
-
-function getTodayCount () {
-    let url = '/api/count';
-    let sendType = 'GET';
-    let body = null;
-    return loadingData(url, sendType, null, body)
 }
 
 function getCount() {

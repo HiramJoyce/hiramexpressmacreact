@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="30abd495-8e65-4c93-862a-d23b601ba644" name="Default" comment="去掉测试用的button列表">
+    <list default="true" id="30abd495-8e65-4c93-862a-d23b601ba644" name="Default" comment="修复查询后累计统计变成字符串相加的bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/network.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/network.service.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,33 +18,34 @@
     <session id="948501311">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="304" />
-          <entry key="txt" value="76" />
+          <entry key="js" value="329" />
+          <entry key="txt" value="116" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="304" />
-          <entry key="PLAIN_TEXT" value="76" />
+          <entry key="JavaScript" value="329" />
+          <entry key="PLAIN_TEXT" value="116" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+            <state relative-caret-position="304">
+              <caret line="90" column="39" lean-forward="true" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lib/network.service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+            <state relative-caret-position="38">
+              <caret line="2" column="37" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -67,6 +67,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>getTodayCount</find>
+      <find>todayCount</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -77,8 +78,8 @@
       <list>
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/lib/network.service.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/lib/network.service.js" />
       </list>
     </option>
   </component>
@@ -99,8 +100,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="493" />
-    <option name="y" value="191" />
+    <option name="x" value="58" />
+    <option name="y" value="69" />
     <option name="width" value="1300" />
     <option name="height" value="833" />
   </component>
@@ -110,7 +111,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -127,6 +127,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -167,7 +168,8 @@
       <updated>1541678929790</updated>
       <workItem from="1541678931169" duration="11424000" />
       <workItem from="1541782996201" duration="3104000" />
-      <workItem from="1541907518309" duration="1894000" />
+      <workItem from="1541907518309" duration="3080000" />
+      <workItem from="1541943440608" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="不知道什么东西">
       <created>1541773401476</created>
@@ -204,14 +206,28 @@
       <option name="project" value="LOCAL" />
       <updated>1541785958787</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="增加历史统计">
+      <created>1541916984746</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1541916984746</updated>
+    </task>
+    <task id="LOCAL-00007" summary="修复查询后累计统计变成字符串相加的bug">
+      <created>1541917210478</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1541917210478</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19023000" />
+    <option name="totallyTimeSpent" value="20816000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="493" y="191" width="1300" height="833" extended-state="0" />
+    <frame x="58" y="69" width="1300" height="833" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24940617" />
@@ -246,7 +262,9 @@
     <MESSAGE value="修复useAnalysis的部分逻辑bug" />
     <MESSAGE value="修改查询时等待动画，修复页面下滑后遮罩无法覆盖的问题" />
     <MESSAGE value="去掉测试用的button列表" />
-    <option name="LAST_COMMIT_MESSAGE" value="去掉测试用的button列表" />
+    <MESSAGE value="增加历史统计" />
+    <MESSAGE value="修复查询后累计统计变成字符串相加的bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复查询后累计统计变成字符串相加的bug" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/public/index.html">
@@ -269,20 +287,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/lib/network.service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="171" column="57" selection-start-line="171" selection-start-column="57" selection-end-line="171" selection-end-column="57" />
+        <state relative-caret-position="304">
+          <caret line="90" column="39" lean-forward="true" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lib/network.service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="37" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
         </state>
       </provider>
     </entry>
