@@ -15,8 +15,8 @@ class App extends Component {
             modalTitle: '',
             modalContent: '',
             traces: [],
-            todayCount: '',
-            historyCount: '',
+            todayCount: 0,
+            historyCount: 0,
             useAnalysis: true,
             allExpress: []
         };
@@ -31,8 +31,8 @@ class App extends Component {
         NetworkService.getCount().then(function (res) {
             if (res.code === 0) {
                 vm.setState({
-                    todayCount: res.data.todayCount,
-                    historyCount: res.data.historyCount
+                    todayCount: parseInt(res.data.todayCount),
+                    historyCount: parseInt(res.data.historyCount)
                 })
             }
         })
@@ -83,14 +83,14 @@ class App extends Component {
                     traces : res.data.traces,
                     expressList: [],
                     allExpress: [],
-                    todayCount: res.msg
+                    todayCount: parseInt(res.msg)
                 })
             } else {
                 vm.setState({
                     modalOpen: true,
                     modalTitle: "查询失败",
                     modalContent: res.msg,
-                    todayCount: res.data
+                    todayCount: parseInt(res.data)
                 })
             }
             vm.setState({checking: false});
