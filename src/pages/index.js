@@ -42,9 +42,7 @@ class App extends Component {
         const vm = this;
         if (!vm.state.checking && vm.state.logisticCode.length >= 6) {
             vm.setState({checking: true, traces: [], allExpress: [], useAnalysis: true});
-            console.log(vm.state.logisticCode);
             NetworkService.analysisExpress(vm.state.logisticCode).then(function (res) {
-                console.log(res);
                 if (res.code === 0) {
                     if (res.data.length <= 0) {
                         vm.setState({
@@ -78,7 +76,6 @@ class App extends Component {
         vm.setState({checking: true});
         NetworkService.checkExpress(vm.state.logisticCode, company_code, vm.state.useAnalysis).then(function (res) {
             if (res.code === 0) {
-                console.log(res);
                 vm.setState({
                     traces : res.data.traces,
                     expressList: [],

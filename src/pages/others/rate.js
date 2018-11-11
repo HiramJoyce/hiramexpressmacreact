@@ -17,7 +17,6 @@ class Rate extends Component {
     };
 
     handleRate = (e, { rating }) => {
-        console.log(rating);
         this.setState({ stars: rating });
     };
 
