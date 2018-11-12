@@ -18,6 +18,7 @@ class App extends Component {
             todayCount: 0,
             historyCount: 0,
             useAnalysis: true,
+            analysisPlatform: '',
             allExpress: []
         };
     };
@@ -44,20 +45,17 @@ class App extends Component {
             vm.setState({checking: true, traces: [], allExpress: [], useAnalysis: true});
             NetworkService.analysisExpress(vm.state.logisticCode).then(function (res) {
                 if (res.code === 0) {
-                    if (res.data.length <= 0) {
+                    if (res.data.list.length <= 0) {
                         vm.setState({
                             modalOpen: true,
                             modalTitle: "解析失败",
                             modalContent: "无法找到该快递编号所属公司。"
                         })
                     } else {
-                        if (res.data.length === 1) {
-                            vm.checkExpress(res.data[0].company_code)
-                        } else {
-                            vm.setState({
-                                expressList: res.data
-                            });
-                        }
+                        vm.setState({
+                            expressList: res.data.list,
+                            analysisPlatform: res.data.platform
+                        });
                     }
                 } else {
                     vm.setState({
@@ -74,7 +72,7 @@ class App extends Component {
     checkExpress = (company_code) => {
         let vm = this;
         vm.setState({checking: true});
-        NetworkService.checkExpress(vm.state.logisticCode, company_code, vm.state.useAnalysis).then(function (res) {
+        NetworkService.checkExpress(vm.state.logisticCode, company_code, vm.state.useAnalysis, vm.state.analysisPlatform).then(function (res) {
             if (res.code === 0) {
                 vm.setState({
                     traces : res.data.traces,
@@ -101,7 +99,8 @@ class App extends Component {
                 vm.setState({
                     expressList: [],
                     allExpress: res.data,
-                    useAnalysis: false
+                    useAnalysis: false,
+                    analysisPlatform: ''
                 })
             }
         })
@@ -116,7 +115,7 @@ class App extends Component {
             );
             vm.state.expressList.forEach(function (expressInfo, index) {
                 _expressList.push(
-                    <Card.Content key={expressInfo.company_code + index} onClick={()=>vm.checkExpress(expressInfo.company_code)} description={expressInfo.company_name} />
+                    <Card.Content key={vm.state.analysisPlatform==='KuaiDi100'?expressInfo.comCode:expressInfo.company_code + index} onClick={()=>vm.checkExpress(vm.state.analysisPlatform==='KuaiDi100'?expressInfo.comCode:expressInfo.company_code)} description={vm.state.analysisPlatform==='KuaiDi100'?expressInfo.comCode:expressInfo.company_name} />
                 )
             });
             _expressList.push(

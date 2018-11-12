@@ -30,10 +30,10 @@ function loadingData(url, sendType, headers, body){
     })
 }
 
-function checkExpress(logisticCode, company_code, useAnalysis) {
+function checkExpress(logisticCode, company_code, useAnalysis, analysisPlatform) {
     let url = '/api/check/';
     let sendType = 'POST';
-    let body = "logisticCode=" + logisticCode + "&shipperCode=" + company_code + "&useAnalysis=" + useAnalysis;
+    let body = "logisticCode=" + logisticCode + "&shipperCode=" + company_code + "&useAnalysis=" + useAnalysis + "&analysisPlatform=" + analysisPlatform;
     return loadingData(url,sendType,null,body)
 }
 
