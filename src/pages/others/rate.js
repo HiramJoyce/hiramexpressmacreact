@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../../App.css'
 import 'semantic-ui-css/semantic.min.css';
 import {Rating, Form, TextArea, Input, Icon, Button, Header, Modal} from 'semantic-ui-react'
 import {NetworkService} from './../../lib/index'

@@ -170,7 +170,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
+                <header className="App-header" style={{paddingBottom: 15, marginBottom:-20}}>
                     <h1>简单查</h1>
                     <Statistic.Group>
                         <Statistic color='green' style={{marginLeft:0}} inverted size='small'>
