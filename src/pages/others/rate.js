@@ -47,7 +47,7 @@ class Rate extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
+                <header className="App-header" style={{paddingBottom: 20, marginBottom:-20}}>
                     <h1>评价与反馈</h1>
                     <br/>
                     <Rating icon='heart' size={'huge'} onRate={this.handleRate} defaultRating={1} maxRating={5} />
@@ -64,7 +64,9 @@ class Rate extends Component {
                     <Button onClick={()=>this.submit()} inverted color='red' content={'提交'}/>
                     <br/>
                     <Button onClick={()=>this.cancel()} inverted color='brown' content={'返回'}/>
+                    <br/>
                 </header>
+                <a style={{fontSize:13}} href={'mailto://chliang0904@sina.com'} >开发者邮箱:chliang0904@sina.com</a>
                 <Modal
                     open={this.state.showModel}
                     onClose={this.handleClose}
