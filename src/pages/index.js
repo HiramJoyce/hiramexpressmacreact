@@ -19,6 +19,7 @@ class App extends Component {
             historyCount: 0,
             useAnalysis: true,
             analysisPlatform: '',
+            checkPlatform: '',
             allExpress: []
         };
     };
@@ -74,8 +75,10 @@ class App extends Component {
         vm.setState({checking: true});
         NetworkService.checkExpress(vm.state.logisticCode, company_code, vm.state.useAnalysis, vm.state.analysisPlatform).then(function (res) {
             if (res.code === 0) {
+                console.log(res.data);
                 vm.setState({
                     traces : res.data.traces,
+                    checkPlatform : res.data.platform,
                     expressList: [],
                     allExpress: [],
                     todayCount: parseInt(res.msg)
@@ -152,7 +155,12 @@ class App extends Component {
                         <Card.Description style={{fontSize:'14px', marginLeft:37}}>{traceInfo.AcceptTime}</Card.Description>
                     </Card.Content>
                 )
-            })
+            });
+            _traces.push(
+                <Card.Content style={{textAlign:'left', padding: '5px 20px'}}>
+                    <Card.Meta style={{fontSize:'10px'}}><Icon name='info' style={{marginRight:10}} />&nbsp;&nbsp;&nbsp;【以上信息来源】{vm.state.checkPlatform}</Card.Meta>
+                </Card.Content>
+            );
         }
         return _traces;
     };
