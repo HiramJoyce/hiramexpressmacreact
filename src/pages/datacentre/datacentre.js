@@ -93,7 +93,7 @@ class Datacentre extends Component {
                 <Header as='h1'>
                     <Icon name='th list'/>
                     <Header.Content>
-                        简单查公开数据统计中心
+                        简单查数据统计中心
                         <Header.Subheader>数据统计系统正在不断完善中...</Header.Subheader>
                     </Header.Content>
                 </Header>
