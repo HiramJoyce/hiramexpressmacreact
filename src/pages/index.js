@@ -170,7 +170,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header" style={{paddingBottom: 15, marginBottom:-20}}>
+                <header className="App-header" style={{paddingBottom: 35, marginBottom:-40}}>
                     <h1>简单查</h1>
                     <Statistic.Group>
                         <Statistic color='green' style={{marginLeft:0}} inverted size='small'>
@@ -215,6 +215,8 @@ class App extends Component {
                     </Modal>
                 </header>
                 <NavLink style={{fontSize:13}} exact to={'/rate'}>如使用中遇到任何问题请反馈</NavLink>
+                <br/>
+                <NavLink style={{fontSize:13}} exact to={'/admin'}>公开数据统计中心</NavLink>
             </div>
         );
     }

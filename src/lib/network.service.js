@@ -3,7 +3,8 @@ const Service = {
     analysisExpress: analysisExpress,
     getExpressList: getExpressList,
     getCount: getCount,
-    rate: rate
+    rate: rate,
+    getStatistics: getStatistics
 };
 // const baseurl = '';    // mac用这个且不提交
 const baseurl = '/napi'; // window开发和部署用这个
@@ -40,22 +41,19 @@ function checkExpress(logisticCode, company_code, useAnalysis, analysisPlatform)
 function analysisExpress(logisticCode) {
     let url = '/api/analysis?logisticCode=' + logisticCode;
     let sendType = 'GET';
-    let body = null;
-    return loadingData(url,sendType,null,body)
+    return loadingData(url,sendType,null,null)
 }
 
 function getCount() {
     let url = '/api/count';
     let sendType = 'GET';
-    let body = null;
-    return loadingData(url, sendType, null, body)
+    return loadingData(url, sendType, null, null)
 }
 
 function getExpressList () {
     let url = '/api/list';
     let sendType = 'GET';
-    let body = null;
-    return loadingData(url, sendType, null, body)
+    return loadingData(url, sendType, null, null)
 }
 
 function rate (message, email, stars) {
@@ -63,6 +61,12 @@ function rate (message, email, stars) {
     let sendType = 'POST';
     let body = 'message=' + message + '&email=' + email + '&stars=' + stars;
     return loadingData(url, sendType, null, body)
+}
+
+function getStatistics() {
+    let url = '/api/statistics';
+    let sendType = 'GET';
+    return loadingData(url, sendType, null, null)
 }
 
 export default Service;

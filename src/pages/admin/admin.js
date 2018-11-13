@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import {Menu, Container, Header, Icon, Grid} from 'semantic-ui-react';
+import {NetworkService} from './../../lib/index'
 // 引入 ECharts 主模块
 import echarts from 'echarts/lib/echarts';
 // 引入柱状图
@@ -14,83 +15,72 @@ class Admin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem: 'byDate'
+            activeItem: 'byDate',
+            recordXAxisData: [],
+            recordSeriesData: [],
+            checkRecordSeriesData: []
         };
     };
 
     componentDidMount() {
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = echarts.init(document.getElementById('main'));
-        // 绘制图表
-        myChart.setOption({
-            title: {text: '历史查询统计'},
-            tooltip: {},
-            xAxis: {
-                data: ["2018-11-08", "2018-11-09", "2018-11-10", "2018-11-11", "2018-11-12"]
-            },
-            yAxis: {},
-            series: [{
-                name: '查询次数',
-                type: 'line',
-                data: [163, 87, 101, 34, 22],
-                // symbol: 'triangle',
-                symbolSize: 8,
-                lineStyle: {
-                    normal: {
-                        color: 'green',
-                        width: 2,
-                        type: 'dashed'
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        borderWidth: 2,
-                        borderColor: 'blue',
-                        // color: 'blue'
-                    }
-                }
-            }]
-        });
-        let myChart2 = echarts.init(document.getElementById('main2'));
-        // 绘制图表
-        myChart2.setOption({
-            tooltip: {},
-            series: [{
-                type: 'sunburst',
-                data: [
-                    {
-                        name: '成功',
-                        value: 1,
-                        children: [
-                            {
-                                name: 'KDNIAO',
-                                value: 1,
-                                children: [
-                                    {name:'YTO', value:1}
-                                ]
+        this.getStatistics();
+    }
+
+    getStatistics = () => {
+        let vm = this;
+        NetworkService.getStatistics().then(function (res) {
+            if (res.code === 0) {
+                if (res.data.record !== null) {
+                    vm.setState({
+                        recordXAxisData: res.data.record.xAxisData,
+                        recordSeriesData: res.data.record.seriesData
+                    })
+                    let myChart = echarts.init(document.getElementById('main'));
+                    myChart.setOption({
+                        title: {text: '历史查询统计'},
+                        tooltip: {},
+                        xAxis: {
+                            data: res.data.record.xAxisData,
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '查询次数',
+                            type: 'line',
+                            data: res.data.record.seriesData,
+                            // symbol: 'triangle',
+                            symbolSize: 8,
+                            lineStyle: {
+                                normal: {
+                                    color: 'green',
+                                    width: 2,
+                                    type: 'dashed'
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderWidth: 2,
+                                    borderColor: 'blue',
+                                    // color: 'blue'
+                                }
                             }
-                        ]
-                    }, {
-                        name: '失败',
-                        value: 11,
-                        children: [{
-                            name: '未收录快递公司',
-                            value: 4
-                        }, {
-                            name: '无数据',
-                            value: 7,
-                            children: [
-                                {name: 'JD', value: 3},
-                                {name: 'TNT', value: 1},
-                                {name: 'BEL', value: 1},
-                                {name: 'UPS', value: 1},
-                                {name: 'DHL', value: 1}
-                            ]
                         }]
-                    }
-                ]
-            }]
-        });
+                    });
+                }
+                if (res.data.checkRecord !== null) {
+                    vm.setState({
+                        checkRecordSeriesData: res.data.checkRecord.seriesData
+                    })
+                    let myChart2 = echarts.init(document.getElementById('main2'));
+                    myChart2.setOption({
+                        tooltip: {},
+                        series: [{
+                            type: 'sunburst',
+                            data: res.data.checkRecord
+                        }]
+                    });
+                }
+            }
+        })
     }
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
@@ -103,8 +93,8 @@ class Admin extends Component {
                 <Header as='h1'>
                     <Icon name='th list'/>
                     <Header.Content>
-                        简单查公开数据统计
-                        <Header.Subheader>数据信息系统正在不断完善中...</Header.Subheader>
+                        简单查公开数据统计中心
+                        <Header.Subheader>数据统计系统正在不断完善中...</Header.Subheader>
                     </Header.Content>
                 </Header>
                 <br/>
