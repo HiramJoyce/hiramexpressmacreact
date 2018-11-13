@@ -5,8 +5,6 @@ import {Menu, Container, Header, Icon, Grid} from 'semantic-ui-react';
 import echarts from 'echarts/lib/echarts';
 // 引入柱状图
 import 'echarts/lib/chart/line';
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/chart/pie';
 import 'echarts/lib/chart/sunburst';
 // 引入提示框和标题组件
 import 'echarts/lib/component/tooltip';
@@ -64,7 +62,13 @@ class Admin extends Component {
                         name: '成功',
                         value: 1,
                         children: [
-                            {name: 'YTO', value: 1}
+                            {
+                                name: 'KDNIAO',
+                                value: 1,
+                                children: [
+                                    {name:'YTO', value:1}
+                                ]
+                            }
                         ]
                     }, {
                         name: '失败',
@@ -99,8 +103,8 @@ class Admin extends Component {
                 <Header as='h1'>
                     <Icon name='th list'/>
                     <Header.Content>
-                        Admin Charts
-                        <Header.Subheader>Manage your preferences</Header.Subheader>
+                        简单查公开数据统计
+                        <Header.Subheader>数据信息系统正在不断完善中...</Header.Subheader>
                     </Header.Content>
                 </Header>
                 <br/>
