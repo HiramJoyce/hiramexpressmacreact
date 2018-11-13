@@ -120,11 +120,13 @@ class Admin extends Component {
                     <Grid.Column width={12}>
                         <Grid>
                             <Grid.Row columns={2}>
-                                <Grid.Column width={6}>
-                                    <div id={'main'} style={{width: 300, height: 300}}></div>
+                                <Grid.Column>
+                                    <div id={'main'} style={{width: 600, height: 300}}></div>
                                 </Grid.Column>
-                                <Grid.Column width={6} style={{marginLeft: 20}}>
-                                    <div id={'main2'} style={{width: 300, height: 300}}></div>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column>
+                                    <div id={'main2'} style={{width: 600, height: 500}}></div>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
