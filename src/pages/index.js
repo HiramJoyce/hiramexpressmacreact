@@ -216,7 +216,7 @@ class App extends Component {
                 </header>
                 <NavLink style={{fontSize:13}} exact to={'/rate'}>如使用中遇到任何问题请反馈</NavLink>
                 <br/>
-                <NavLink style={{fontSize:13}} exact to={'/admin'}>公开数据统计中心</NavLink>
+                <NavLink style={{fontSize:13}} exact to={'/datacentre'}>公开数据统计中心</NavLink>
             </div>
         );
     }

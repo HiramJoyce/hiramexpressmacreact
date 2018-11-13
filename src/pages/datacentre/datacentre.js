@@ -11,7 +11,7 @@ import 'echarts/lib/chart/sunburst';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 
-class Admin extends Component {
+class Datacentre extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -99,32 +99,32 @@ class Admin extends Component {
                 </Header>
                 <br/>
                 <Grid>
-                    <Grid.Column width={4}>
-                        <Menu pointing secondary vertical>
-                            <Menu.Item name='byDate' active={activeItem === 'byDate'} onClick={this.handleItemClick}>
-                                查询统计
-                            </Menu.Item>
-                        </Menu>
-                    </Grid.Column>
+                    {/*<Grid.Column width={4}>*/}
+                        {/*<Menu pointing secondary vertical>*/}
+                            {/*<Menu.Item name='byDate' active={activeItem === 'byDate'} onClick={this.handleItemClick}>*/}
+                                {/*查询统计*/}
+                            {/*</Menu.Item>*/}
+                        {/*</Menu>*/}
+                    {/*</Grid.Column>*/}
 
-                    <Grid.Column width={12}>
-                        <Grid>
-                            <Grid.Row columns={2}>
+                    {/*<Grid.Column width={12} style={{alignItems:'center'}}>*/}
+                        {/*<Grid>*/}
+                            <Grid.Row>
                                 <Grid.Column>
-                                    <div id={'main'} style={{width: 600, height: 300}}></div>
+                                    <div id={'main'} style={{width: 600, height: 300, margin:'auto'}}></div>
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
                                 <Grid.Column>
-                                    <div id={'main2'} style={{width: 600, height: 500}}></div>
+                                    <div id={'main2'} style={{width: 600, height: 500, margin:'auto'}}></div>
                                 </Grid.Column>
                             </Grid.Row>
-                        </Grid>
-                    </Grid.Column>
+                        {/*</Grid>*/}
+                    {/*</Grid.Column>*/}
                 </Grid>
             </Container>
         );
     }
 }
 
-export default Admin;
+export default Datacentre;
